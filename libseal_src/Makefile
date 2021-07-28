@@ -1,123 +1,119 @@
-CXX = /usr/bin/c++
-CXX_INCLUDES = -I/home/romano/IST/Tese/SEAL/native/src -I/home/romano/IST/Tese/SEAL/build/native/src -I/home/romano/IST/Tese/SEAL/thirdparty/msgsl-src/include -I/home/romano/IST/Tese/SEAL/thirdparty/zlib-src -I/home/romano/IST/Tese/SEAL/build/thirdparty/zlib-src -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/lib/common
+CXX = /usr/bin/g++
 CXX_FLAGS = -O3 -DNDEBUG -fPIC -pthread -std=gnu++17
+CXX_INCLUDES = -I.
 
 CC = /usr/bin/cc
-C_INCLUDES = -I/home/romano/IST/Tese/SEAL/native/src -I/home/romano/IST/Tese/SEAL/build/native/src -I/home/romano/IST/Tese/SEAL/thirdparty/msgsl-src/include -I/home/romano/IST/Tese/SEAL/thirdparty/zlib-src -I/home/romano/IST/Tese/SEAL/build/thirdparty/zlib-src -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/lib/common 
+
 C_FLAGS = -O3 -DNDEBUG -fPIC -pthread
-
-C_FLAGS_ZSTD =  -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wcast-qual -Wstrict-prototypes -O3 -DNDEBUG -fPIC  
-
+C_FLAGS_ZSTD = -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wcast-qual -Wstrict-prototypes -O3 -DNDEBUG -fPIC  
 C_DEFINES_ZSTD = -DXXH_NAMESPACE=ZSTD_ -DZSTD_LEGACY_SUPPORT=0
-
-C_INCLUDES_ZSTD = -I/home/romano/IST/Tese/SEAL/build/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib/common
-
+#C_INCLUDES_ZSTD = -I/home/romano/IST/Tese/SEAL/build/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib/common
 include zstdlib/depend.make
 
 #From libseal
-batchencoder.o: batchencoder.cpp
+seal/batchencoder.o: seal/batchencoder.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-ciphertext.o: ciphertext.cpp
+seal/ciphertext.o: seal/ciphertext.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-ckks.o: ckks.cpp
+seal/ckks.o: seal/ckks.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-context.o: context.cpp
+seal/context.o: seal/context.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-decryptor.o: decryptor.cpp
+seal/decryptor.o: seal/decryptor.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-encryptionparams.o: encryptionparams.cpp
+seal/encryptionparams.o: seal/encryptionparams.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-encryptor.o: encryptor.cpp
+seal/encryptor.o: seal/encryptor.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-evaluator.o: evaluator.cpp
+seal/evaluator.o: seal/evaluator.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-keygenerator.o: keygenerator.cpp
+seal/keygenerator.o: seal/keygenerator.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-kswitchkeys.o: kswitchkeys.cpp
+seal/kswitchkeys.o: seal/kswitchkeys.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-memorymanager.o: memorymanager.cpp
+seal/memorymanager.o: seal/memorymanager.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-modulus.o: modulus.cpp
+seal/modulus.o: seal/modulus.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-plaintext.o: plaintext.cpp
+seal/plaintext.o: seal/plaintext.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-randomgen.o: randomgen.cpp
+seal/randomgen.o: seal/randomgen.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/clipnormal.o: util/clipnormal.cpp
+seal/util/clipnormal.o: seal/util/clipnormal.cpp
+	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c seal/$^
+
+seal/util/common.o: seal/util/common.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/common.o: util/common.cpp
+seal/util/croots.o: seal/util/croots.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/croots.o: util/croots.cpp
+seal/util/galois.o: seal/util/galois.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/galois.o: util/galois.cpp
+seal/util/globals.o: seal/util/globals.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/globals.o: util/globals.cpp
+seal/util/hash.o: seal/util/hash.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/hash.o: util/hash.cpp
+seal/util/intel_seal_ext.o: seal/util/intel_seal_ext.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/intel_seal_ext.o: util/intel_seal_ext.cpp
+seal/util/iterator.o: seal/util/iterator.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/iterator.o: util/iterator.cpp
+seal/util/mempool.o: seal/util/mempool.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/mempool.o: util/mempool.cpp
+seal/util/ntt.o: seal/util/ntt.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/ntt.o: util/ntt.cpp
+seal/util/numth.o: seal/util/numth.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/numth.o: util/numth.cpp
+seal/util/polyarithsmallmod.o: seal/util/polyarithsmallmod.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/polyarithsmallmod.o: util/polyarithsmallmod.cpp
+seal/util/rlwe.o: seal/util/rlwe.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/rlwe.o: util/rlwe.cpp
+seal/util/rns.o: seal/util/rns.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/rns.o: util/rns.cpp
+seal/util/scalingvariant.o: seal/util/scalingvariant.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/scalingvariant.o: util/scalingvariant.cpp
+seal/util/streambuf.o: seal/util/streambuf.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/streambuf.o: util/streambuf.cpp
+seal/util/uintarith.o: seal/util/uintarith.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/uintarith.o: util/uintarith.cpp
+seal/util/uintarithmod.o: seal/util/uintarithmod.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/uintarithmod.o: util/uintarithmod.cpp
+seal/util/uintarithsmallmod.o: seal/util/uintarithsmallmod.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/uintarithsmallmod.o: util/uintarithsmallmod.cpp
+seal/util/uintcore.o: seal/util/uintcore.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/uintcore.o: util/uintcore.cpp
-	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
-
-util/ztools.o: util/ztools.cpp
+seal/util/ztools.o: seal/util/ztools.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
 valcheck.o: valcheck.cpp
@@ -126,13 +122,13 @@ valcheck.o: valcheck.cpp
 serialization.o: serialization.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-util/fips202.o: util/fips202.c
+seal/util/fips202.o: seal/util/fips202.c
 	$(CC) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-util/blake2b.o: util/blake2b.c
+seal/util/blake2b.o: seal/util/blake2b.c
 	$(CC) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-util/blake2xb.o: util/blake2xb.c
+seal/util/blake2xb.o: seal/util/blake2xb.c
 	$(CC) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 
@@ -333,47 +329,47 @@ libseal: zlib/uncompr.o
 libseal: zlib/zutil.o
 
 #From seal
-libseal: util/blake2b.o
-libseal: util/blake2xb.o
-libseal: util/fips202.o
-libseal: batchencoder.o
-libseal: ciphertext.o
-libseal: ckks.o
-libseal: context.o
-libseal: decryptor.o
-libseal: encryptionparams.o
-libseal: encryptor.o
-libseal: evaluator.o
-libseal: keygenerator.o
-libseal: kswitchkeys.o
-libseal: memorymanager.o
-libseal: modulus.o
-libseal: plaintext.o
-libseal: randomgen.o
-libseal: serialization.o
-libseal: valcheck.o
-libseal: util/clipnormal.o
-libseal: util/common.o
-libseal: util/croots.o
-libseal: util/globals.o
-libseal: util/galois.o
-libseal: util/hash.o
-libseal: util/iterator.o
-libseal: util/intel_seal_ext.o
-libseal: util/mempool.o
-libseal: util/numth.o
-libseal: util/polyarithsmallmod.o
-libseal: util/rlwe.o
-libseal: util/rns.o
-libseal: util/scalingvariant.o
-libseal: util/ntt.o
-libseal: util/streambuf.o
-libseal: util/uintarith.o
-libseal: util/uintarithmod.o
-libseal: util/uintarithsmallmod.o
-libseal: util/uintcore.o
-libseal: util/ztools.o
+libseal: seal/util/blake2b.o
+libseal: seal/util/blake2xb.o
+libseal: seal/util/fips202.o
+libseal: seal/batchencoder.o
+libseal: seal/ciphertext.o
+libseal: seal/ckks.o
+libseal: seal/context.o
+libseal: seal/decryptor.o
+libseal: seal/encryptionparams.o
+libseal: seal/encryptor.o
+libseal: seal/evaluator.o
+libseal: seal/keygenerator.o
+libseal: seal/kswitchkeys.o
+libseal: seal/memorymanager.o
+libseal: seal/modulus.o
+libseal: seal/plaintext.o
+libseal: seal/randomgen.o
+libseal: seal/valcheck.o
+libseal: seal/util/clipnormal.o
+libseal: seal/util/common.o
+libseal: seal/util/croots.o
+libseal: seal/util/globals.o
+libseal: seal/util/galois.o
+libseal: seal/serialization.o
+libseal: seal/util/hash.o
+libseal: seal/util/iterator.o
+libseal: seal/util/intel_seal_ext.o
+libseal: seal/util/mempool.o
+libseal: seal/util/numth.o
+libseal: seal/util/polyarithsmallmod.o
+libseal: seal/util/rlwe.o
+libseal: seal/util/rns.o
+libseal: seal/util/scalingvariant.o
+libseal: seal/util/ntt.o
+libseal: seal/util/streambuf.o
+libseal: seal/util/uintarith.o
+libseal: seal/util/uintarithmod.o
+libseal: seal/util/uintarithsmallmod.o
+libseal: seal/util/uintcore.o
+libseal: seal/util/ztools.o
 	ar rcs libseal.a $^
 
 clean:
-	rm *.o util\*.o
+	rm seal/util/*.o zlib/*.o zstdlib/*.o

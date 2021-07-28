@@ -10,6 +10,101 @@ C_DEFINES_ZSTD = -DXXH_NAMESPACE=ZSTD_ -DZSTD_LEGACY_SUPPORT=0
 #C_INCLUDES_ZSTD = -I/home/romano/IST/Tese/SEAL/build/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib/common
 include zstdlib/depend.make
 
+
+#From zstd
+libseal: zstdlib/common/debug.o
+libseal: zstdlib/common/entropy_common.o
+libseal: zstdlib/common/error_private.o
+libseal: zstdlib/common/fse_decompress.o
+libseal: zstdlib/common/pool.o
+libseal: zstdlib/common/threading.o
+libseal: zstdlib/common/xxhash.o
+libseal: zstdlib/common/zstd_common.o
+libseal: zstdlib/compress/fse_compress.o
+libseal: zstdlib/compress/hist.o
+libseal: zstdlib/compress/huf_compress.o
+libseal: zstdlib/compress/zstd_compress.o
+libseal: zstdlib/compress/zstd_compress_literals.o
+libseal: zstdlib/compress/zstd_compress_sequences.o
+libseal: zstdlib/compress/zstd_compress_superblock.o
+libseal: zstdlib/compress/zstd_double_fast.o
+libseal: zstdlib/compress/zstd_fast.o
+libseal: zstdlib/compress/zstd_lazy.o
+libseal: zstdlib/compress/zstd_ldm.o
+libseal: zstdlib/compress/zstd_opt.o
+libseal: zstdlib/compress/zstdmt_compress.o
+libseal: zstdlib/decompress/huf_decompress.o
+libseal: zstdlib/decompress/zstd_ddict.o
+libseal: zstdlib/decompress/zstd_decompress.o
+libseal: zstdlib/decompress/zstd_decompress_block.o
+libseal: zstdlib/dictBuilder/cover.o
+libseal: zstdlib/dictBuilder/divsufsort.o
+libseal: zstdlib/dictBuilder/fastcover.o
+libseal: zstdlib/dictBuilder/zdict.o
+libseal: zstdlib/deprecated/zbuff_common.o
+libseal: zstdlib/deprecated/zbuff_compress.o
+libseal: zstdlib/deprecated/zbuff_decompress.o
+
+#From zlib
+libseal: zlib/adler32.o
+libseal: zlib/compress.o	
+libseal: zlib/crc32.o	
+libseal: zlib/deflate.o	
+libseal: zlib/gzclose.o	
+libseal: zlib/gzlib.o	
+libseal: zlib/gzread.o
+libseal: zlib/gzwrite.o	
+libseal: zlib/inflate.o
+libseal: zlib/infback.o	
+libseal: zlib/inftrees.o
+libseal: zlib/inffast.o	
+libseal: zlib/trees.o	
+libseal: zlib/uncompr.o
+libseal: zlib/zutil.o
+
+#From seal
+libseal: seal/util/blake2b.o
+libseal: seal/util/blake2xb.o
+libseal: seal/util/fips202.o
+libseal: seal/batchencoder.o
+libseal: seal/ciphertext.o
+libseal: seal/ckks.o
+libseal: seal/context.o
+libseal: seal/decryptor.o
+libseal: seal/encryptionparams.o
+libseal: seal/encryptor.o
+libseal: seal/evaluator.o
+libseal: seal/keygenerator.o
+libseal: seal/kswitchkeys.o
+libseal: seal/memorymanager.o
+libseal: seal/modulus.o
+libseal: seal/plaintext.o
+libseal: seal/randomgen.o
+libseal: seal/valcheck.o
+libseal: seal/util/clipnormal.o
+libseal: seal/util/common.o
+libseal: seal/util/croots.o
+libseal: seal/util/globals.o
+libseal: seal/util/galois.o
+libseal: seal/serialization.o
+libseal: seal/util/hash.o
+libseal: seal/util/iterator.o
+libseal: seal/util/intel_seal_ext.o
+libseal: seal/util/mempool.o
+libseal: seal/util/numth.o
+libseal: seal/util/polyarithsmallmod.o
+libseal: seal/util/rlwe.o
+libseal: seal/util/rns.o
+libseal: seal/util/scalingvariant.o
+libseal: seal/util/ntt.o
+libseal: seal/util/streambuf.o
+libseal: seal/util/uintarith.o
+libseal: seal/util/uintarithmod.o
+libseal: seal/util/uintarithsmallmod.o
+libseal: seal/util/uintcore.o
+libseal: seal/util/ztools.o
+	ar rcs libseal.a $^
+
 #From libseal
 seal/batchencoder.o: seal/batchencoder.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
@@ -134,49 +229,49 @@ seal/util/blake2xb.o: seal/util/blake2xb.c
 
 #From zlib
 zlib/adler32.o: zlib/adler32.c
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/compress.o: zlib/compress.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/crc32.o: zlib/crc32.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/deflate.o: zlib/deflate.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/gzclose.o: zlib/gzclose.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/gzlib.o: zlib/gzlib.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/gzread.o: zlib/gzread.c
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/gzwrite.o: zlib/gzwrite.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/inflate.o: zlib/inflate.c
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/infback.o: zlib/infback.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/inftrees.o: zlib/inftrees.c
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/inffast.o: zlib/inffast.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/trees.o: zlib/trees.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 	
 zlib/uncompr.o: zlib/uncompr.c
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 	
 zlib/zutil.o: zlib/zutil.c	
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
+	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 
 #From zstdlib
@@ -275,101 +370,6 @@ zstdlib/deprecated/zbuff_compress.o: zstdlib/deprecated/zbuff_compress.c
 
 zstdlib/deprecated/zbuff_decompress.o: zstdlib/deprecated/zbuff_decompress.c	
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-
-
-#From zstd
-libseal: zstdlib/common/debug.o
-libseal: zstdlib/common/entropy_common.o
-libseal: zstdlib/common/error_private.o
-libseal: zstdlib/common/fse_decompress.o
-libseal: zstdlib/common/pool.o
-libseal: zstdlib/common/threading.o
-libseal: zstdlib/common/xxhash.o
-libseal: zstdlib/common/zstd_common.o
-libseal: zstdlib/compress/fse_compress.o
-libseal: zstdlib/compress/hist.o
-libseal: zstdlib/compress/huf_compress.o
-libseal: zstdlib/compress/zstd_compress.o
-libseal: zstdlib/compress/zstd_compress_literals.o
-libseal: zstdlib/compress/zstd_compress_sequences.o
-libseal: zstdlib/compress/zstd_compress_superblock.o
-libseal: zstdlib/compress/zstd_double_fast.o
-libseal: zstdlib/compress/zstd_fast.o
-libseal: zstdlib/compress/zstd_lazy.o
-libseal: zstdlib/compress/zstd_ldm.o
-libseal: zstdlib/compress/zstd_opt.o
-libseal: zstdlib/compress/zstdmt_compress.o
-libseal: zstdlib/decompress/huf_decompress.o
-libseal: zstdlib/decompress/zstd_ddict.o
-libseal: zstdlib/decompress/zstd_decompress.o
-libseal: zstdlib/decompress/zstd_decompress_block.o
-libseal: zstdlib/dictBuilder/cover.o
-libseal: zstdlib/dictBuilder/divsufsort.o
-libseal: zstdlib/dictBuilder/fastcover.o
-libseal: zstdlib/dictBuilder/zdict.o
-libseal: zstdlib/deprecated/zbuff_common.o
-libseal: zstdlib/deprecated/zbuff_compress.o
-libseal: zstdlib/deprecated/zbuff_decompress.o
-
-#From zlib
-libseal: zlib/adler32.o
-libseal: zlib/compress.o	
-libseal: zlib/crc32.o	
-libseal: zlib/deflate.o	
-libseal: zlib/gzclose.o	
-libseal: zlib/gzlib.o	
-libseal: zlib/gzread.o
-libseal: zlib/gzwrite.o	
-libseal: zlib/inflate.o
-libseal: zlib/infback.o	
-libseal: zlib/inftrees.o
-libseal: zlib/inffast.o	
-libseal: zlib/trees.o	
-libseal: zlib/uncompr.o
-libseal: zlib/zutil.o
-
-#From seal
-libseal: seal/util/blake2b.o
-libseal: seal/util/blake2xb.o
-libseal: seal/util/fips202.o
-libseal: seal/batchencoder.o
-libseal: seal/ciphertext.o
-libseal: seal/ckks.o
-libseal: seal/context.o
-libseal: seal/decryptor.o
-libseal: seal/encryptionparams.o
-libseal: seal/encryptor.o
-libseal: seal/evaluator.o
-libseal: seal/keygenerator.o
-libseal: seal/kswitchkeys.o
-libseal: seal/memorymanager.o
-libseal: seal/modulus.o
-libseal: seal/plaintext.o
-libseal: seal/randomgen.o
-libseal: seal/valcheck.o
-libseal: seal/util/clipnormal.o
-libseal: seal/util/common.o
-libseal: seal/util/croots.o
-libseal: seal/util/globals.o
-libseal: seal/util/galois.o
-libseal: seal/serialization.o
-libseal: seal/util/hash.o
-libseal: seal/util/iterator.o
-libseal: seal/util/intel_seal_ext.o
-libseal: seal/util/mempool.o
-libseal: seal/util/numth.o
-libseal: seal/util/polyarithsmallmod.o
-libseal: seal/util/rlwe.o
-libseal: seal/util/rns.o
-libseal: seal/util/scalingvariant.o
-libseal: seal/util/ntt.o
-libseal: seal/util/streambuf.o
-libseal: seal/util/uintarith.o
-libseal: seal/util/uintarithmod.o
-libseal: seal/util/uintarithsmallmod.o
-libseal: seal/util/uintcore.o
-libseal: seal/util/ztools.o
-	ar rcs libseal.a $^
 
 clean:
 	rm seal/util/*.o zlib/*.o zstdlib/*.o

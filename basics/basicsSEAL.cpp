@@ -1,12 +1,16 @@
 
 #include "seal/seal.h"
+#include "seal/evaluator.h"
+
 #include <iostream>
 
 using namespace std;
 using namespace seal;
+using namespace seal::util;
 
 int main()
 {
+
     EncryptionParameters parms(scheme_type::bfv);
 
     size_t poly_modulus_degree = 4096;
@@ -21,7 +25,7 @@ int main()
     KeyGenerator keygen(context);
     SecretKey secret_key = keygen.secret_key();
     PublicKey public_key;
-    
+
     keygen.create_public_key(public_key);
 
     Encryptor encryptor(context, public_key);
@@ -34,7 +38,7 @@ int main()
     Plaintext x_plain(to_string(x));
 
     Ciphertext x_encrypted;
-    encryptor.encrypt(x_plain, x_encrypted);    
+    encryptor.encrypt(x_plain, x_encrypted);
 
     Plaintext x_decrypted;
     decryptor.decrypt(x_encrypted, x_decrypted);

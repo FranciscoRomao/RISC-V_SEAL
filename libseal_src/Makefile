@@ -1,18 +1,17 @@
 CXX = /usr/bin/c++
 #CXX_FLAGS = -std=gnu++17 -shared
-CXX_FLAGS = -std=gnu++17 -fPIC
+CXX_FLAGS = -fPIC
 CXX_INCLUDES = -I. -I../SEAL_lib_original/
-
 
 CC = /usr/bin/cc
 C_FLAGS = -fPIC
+C_INCLUDES = -I. -I../SEAL_lib_original/
 #C_FLAGS_ZSTD = -fPIC -std=c99
 C_FLAGS_ZSTD = -fPIC -std=c99
 C_DEFINES_ZSTD = -DXXH_NAMESPACE=ZSTD_ -DZSTD_LEGACY_SUPPORT=0
+C_INCLUDES_ZSTD = -I. -I../SEAL_lib_original/
 
 include zstdlib/depend.make
-
-.DEFAULT: libseal #Não funciona não sei porque usar: make libseal
 
 #From zstd
 libseal: zstdlib/common/debug.o
@@ -50,18 +49,18 @@ libseal: zstdlib/deprecated/zbuff_decompress.o
 
 #From zlib
 libseal: zlib/adler32.o
-libseal: zlib/compress.o	
-libseal: zlib/crc32.o	
-libseal: zlib/deflate.o	
-libseal: zlib/gzclose.o	
-libseal: zlib/gzlib.o	
+libseal: zlib/compress.o
+libseal: zlib/crc32.o
+libseal: zlib/deflate.o
+libseal: zlib/gzclose.o
+libseal: zlib/gzlib.o
 libseal: zlib/gzread.o
-libseal: zlib/gzwrite.o	
+libseal: zlib/gzwrite.o
 libseal: zlib/inflate.o
-libseal: zlib/infback.o	
+libseal: zlib/infback.o
 libseal: zlib/inftrees.o
-libseal: zlib/inffast.o	
-libseal: zlib/trees.o	
+libseal: zlib/inffast.o
+libseal: zlib/trees.o
 libseal: zlib/uncompr.o
 libseal: zlib/zutil.o
 
@@ -106,8 +105,8 @@ libseal: seal/util/uintarithmod.o
 libseal: seal/util/uintarithsmallmod.o
 libseal: seal/util/uintcore.o
 libseal: seal/util/ztools.o
-	gcc -shared -o libseal.so $^	
-	
+	gcc -shared -o libseal.so $^
+
 #ar rcs libseal.a $^
 
 #From libseal
@@ -236,46 +235,46 @@ seal/util/blake2xb.o: seal/util/blake2xb.c
 zlib/adler32.o: zlib/adler32.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/compress.o: zlib/compress.c	
+zlib/compress.o: zlib/compress.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/crc32.o: zlib/crc32.c	
+zlib/crc32.o: zlib/crc32.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/deflate.o: zlib/deflate.c	
+zlib/deflate.o: zlib/deflate.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/gzclose.o: zlib/gzclose.c	
+zlib/gzclose.o: zlib/gzclose.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/gzlib.o: zlib/gzlib.c	
+zlib/gzlib.o: zlib/gzlib.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/gzread.o: zlib/gzread.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/gzwrite.o: zlib/gzwrite.c	
+zlib/gzwrite.o: zlib/gzwrite.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/inflate.o: zlib/inflate.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/infback.o: zlib/infback.c	
+zlib/infback.o: zlib/infback.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 zlib/inftrees.o: zlib/inftrees.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/inffast.o: zlib/inffast.c	
+zlib/inffast.o: zlib/inffast.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
-zlib/trees.o: zlib/trees.c	
+zlib/trees.o: zlib/trees.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
-	
+
 zlib/uncompr.o: zlib/uncompr.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
-	
-zlib/zutil.o: zlib/zutil.c	
+
+zlib/zutil.o: zlib/zutil.c
 	$(CC) $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o $@ -c $^
 
 
@@ -285,35 +284,35 @@ zstdlib/common/debug.o: zstdlib/common/debug.c
 
 zstdlib/common/entropy_common.o: zstdlib/common/entropy_common.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
+
 zstdlib/common/error_private.o: zstdlib/common/error_private.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
+
 zstdlib/common/fse_decompress.o: zstdlib/common/fse_decompress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
 zstdlib/common/pool.o: zstdlib/common/pool.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
+
 zstdlib/common/threading.o: zstdlib/common/threading.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
+
 zstdlib/common/xxhash.o: zstdlib/common/xxhash.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
+
 zstdlib/common/zstd_common.o: zstdlib/common/zstd_common.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
+
 zstdlib/compress/fse_compress.o: zstdlib/compress/fse_compress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/compress/hist.o: zstdlib/compress/hist.c	
+zstdlib/compress/hist.o: zstdlib/compress/hist.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/compress/huf_compress.o: zstdlib/compress/huf_compress.c	
+zstdlib/compress/huf_compress.o: zstdlib/compress/huf_compress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
-zstdlib/compress/zstd_compress.o: zstdlib/compress/zstd_compress.c	
+
+zstdlib/compress/zstd_compress.o: zstdlib/compress/zstd_compress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
 zstdlib/compress/zstd_compress_literals.o: zstdlib/compress/zstd_compress_literals.c
@@ -322,58 +321,58 @@ zstdlib/compress/zstd_compress_literals.o: zstdlib/compress/zstd_compress_litera
 zstdlib/compress/zstd_compress_sequences.o: zstdlib/compress/zstd_compress_sequences.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/compress/zstd_compress_superblock.o: zstdlib/compress/zstd_compress_superblock.c	
-	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
-	
-zstdlib/compress/zstd_double_fast.o: zstdlib/compress/zstd_double_fast.c	
+zstdlib/compress/zstd_compress_superblock.o: zstdlib/compress/zstd_compress_superblock.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/compress/zstd_fast.o: zstdlib/compress/zstd_fast.c	
+zstdlib/compress/zstd_double_fast.o: zstdlib/compress/zstd_double_fast.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/compress/zstd_lazy.o: zstdlib/compress/zstd_lazy.c	
+zstdlib/compress/zstd_fast.o: zstdlib/compress/zstd_fast.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/compress/zstd_ldm.o: zstdlib/compress/zstd_ldm.c	
+zstdlib/compress/zstd_lazy.o: zstdlib/compress/zstd_lazy.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/compress/zstd_opt.o: zstdlib/compress/zstd_opt.c	
+zstdlib/compress/zstd_ldm.o: zstdlib/compress/zstd_ldm.c
+	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
+
+zstdlib/compress/zstd_opt.o: zstdlib/compress/zstd_opt.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
 zstdlib/compress/zstdmt_compress.o: zstdlib/compress/zstdmt_compress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/decompress/huf_decompress.o: zstdlib/decompress/huf_decompress.c	
+zstdlib/decompress/huf_decompress.o: zstdlib/decompress/huf_decompress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
 zstdlib/decompress/zstd_ddict.o: zstdlib/decompress/zstd_ddict.c
-	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^	
-
-zstdlib/decompress/zstd_decompress.o: zstdlib/decompress/zstd_decompress.c	
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/decompress/zstd_decompress_block.o: zstdlib/decompress/zstd_decompress_block.c	
+zstdlib/decompress/zstd_decompress.o: zstdlib/decompress/zstd_decompress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/dictBuilder/cover.o: zstdlib/dictBuilder/cover.c	
+zstdlib/decompress/zstd_decompress_block.o: zstdlib/decompress/zstd_decompress_block.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/dictBuilder/divsufsort.o: zstdlib/dictBuilder/divsufsort.c	
+zstdlib/dictBuilder/cover.o: zstdlib/dictBuilder/cover.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/dictBuilder/fastcover.o: zstdlib/dictBuilder/fastcover.c	
+zstdlib/dictBuilder/divsufsort.o: zstdlib/dictBuilder/divsufsort.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/dictBuilder/zdict.o: zstdlib/dictBuilder/zdict.c	
+zstdlib/dictBuilder/fastcover.o: zstdlib/dictBuilder/fastcover.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/deprecated/zbuff_common.o: zstdlib/deprecated/zbuff_common.c	
+zstdlib/dictBuilder/zdict.o: zstdlib/dictBuilder/zdict.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/deprecated/zbuff_compress.o: zstdlib/deprecated/zbuff_compress.c	
+zstdlib/deprecated/zbuff_common.o: zstdlib/deprecated/zbuff_common.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
-zstdlib/deprecated/zbuff_decompress.o: zstdlib/deprecated/zbuff_decompress.c	
+zstdlib/deprecated/zbuff_compress.o: zstdlib/deprecated/zbuff_compress.c
+	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
+
+zstdlib/deprecated/zbuff_decompress.o: zstdlib/deprecated/zbuff_decompress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
 clean:

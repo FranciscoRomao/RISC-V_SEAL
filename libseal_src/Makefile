@@ -1,15 +1,18 @@
-CXX = /usr/bin/g++
-CXX_FLAGS = -O3 -DNDEBUG -fPIC -pthread -std=gnu++17
+CXX = /usr/bin/c++
+#CXX_FLAGS = -std=gnu++17 -shared
+CXX_FLAGS = -std=gnu++17 -fPIC
 CXX_INCLUDES = -I.
 
-CC = /usr/bin/cc
 
-C_FLAGS = -O3 -DNDEBUG -fPIC -pthread
-C_FLAGS_ZSTD = -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wcast-qual -Wstrict-prototypes -O3 -DNDEBUG -fPIC  
+CC = /usr/bin/cc
+C_FLAGS = -fPIC
+#C_FLAGS_ZSTD = -fPIC -std=c99
+C_FLAGS_ZSTD = -fPIC -std=c99
 C_DEFINES_ZSTD = -DXXH_NAMESPACE=ZSTD_ -DZSTD_LEGACY_SUPPORT=0
-#C_INCLUDES_ZSTD = -I/home/romano/IST/Tese/SEAL/build/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib -I/home/romano/IST/Tese/SEAL/thirdparty/zstd-src/build/cmake/../../lib/common
+
 include zstdlib/depend.make
 
+.DEFAULT: libseal #Não funciona não sei porque usar: make libseal
 
 #From zstd
 libseal: zstdlib/common/debug.o
@@ -63,9 +66,6 @@ libseal: zlib/uncompr.o
 libseal: zlib/zutil.o
 
 #From seal
-libseal: seal/util/blake2b.o
-libseal: seal/util/blake2xb.o
-libseal: seal/util/fips202.o
 libseal: seal/batchencoder.o
 libseal: seal/ciphertext.o
 libseal: seal/ckks.o
@@ -81,6 +81,9 @@ libseal: seal/modulus.o
 libseal: seal/plaintext.o
 libseal: seal/randomgen.o
 libseal: seal/valcheck.o
+libseal: seal/util/blake2xb.o
+libseal: seal/util/blake2b.o
+libseal: seal/util/fips202.o
 libseal: seal/util/clipnormal.o
 libseal: seal/util/common.o
 libseal: seal/util/croots.o
@@ -103,7 +106,9 @@ libseal: seal/util/uintarithmod.o
 libseal: seal/util/uintarithsmallmod.o
 libseal: seal/util/uintcore.o
 libseal: seal/util/ztools.o
-	ar rcs libseal.a $^
+	gcc -shared -o libseal.so $^	
+	
+#ar rcs libseal.a $^
 
 #From libseal
 seal/batchencoder.o: seal/batchencoder.cpp
@@ -128,7 +133,7 @@ seal/encryptor.o: seal/encryptor.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
 seal/evaluator.o: seal/evaluator.cpp
-	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
+	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -shared -o $@ -c $^
 
 seal/keygenerator.o: seal/keygenerator.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
@@ -149,7 +154,7 @@ seal/randomgen.o: seal/randomgen.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
 seal/util/clipnormal.o: seal/util/clipnormal.cpp
-	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c seal/$^
+	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
 seal/util/common.o: seal/util/common.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
@@ -211,10 +216,10 @@ seal/util/uintcore.o: seal/util/uintcore.cpp
 seal/util/ztools.o: seal/util/ztools.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-valcheck.o: valcheck.cpp
+seal/valcheck.o: seal/valcheck.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
-serialization.o: serialization.cpp
+seal/serialization.o: seal/serialization.cpp
 	$(CXX) $(CXX_INCLUDES) $(CXX_FLAGS) -o $@ -c $^
 
 seal/util/fips202.o: seal/util/fips202.c
@@ -372,4 +377,5 @@ zstdlib/deprecated/zbuff_decompress.o: zstdlib/deprecated/zbuff_decompress.c
 	$(CC) $(C_DEFINES_ZSTD) $(C_INCLUDES_ZSTD) $(C_FLAGS_ZSTD) -o $@ -c $^
 
 clean:
-	rm seal/util/*.o zlib/*.o zstdlib/*.o
+	find . -name "*.o" -delete
+	find . -name "*.so" -delete

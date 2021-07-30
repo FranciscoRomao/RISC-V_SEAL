@@ -1,7 +1,7 @@
 CXX = /usr/bin/c++
 #CXX_FLAGS = -std=gnu++17 -shared
 CXX_FLAGS = -std=gnu++17 -fPIC
-CXX_INCLUDES = -I.
+CXX_INCLUDES = -I. -I../SEAL_lib_original/
 
 
 CC = /usr/bin/cc

@@ -4,7 +4,7 @@ basics_gcc.o: basicsSEAL.cpp
 	/usr/bin/c++ $^ -isystem SEAL_lib_original/ -L../libseal_src/ -c -std=gnu++17 -lseal -o $@
 
 basics_gcc: basics_gcc.o
-	/usr/bin/c++ $^ -isystem SEAL_lib_original/ -L../libseal_src/ -lseal -o $@
+	/usr/bin/cpp $^ -isystem SEAL_lib_original/ -L../libseal_src/ -lseal -o $@
 
 basics_riscv.o: basicsSEAL.cpp
 	@echo "=== Compiling Basics ==="

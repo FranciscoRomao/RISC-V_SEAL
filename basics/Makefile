@@ -1,3 +1,5 @@
+CC = /home/franciscoromao/riscv-gnu-toolchain/bin/riscv64-unknown-elf-g++
+
 #/usr/bin/c++ -isystem /usr/local/include/SEAL-3.6 -std=gnu++17 -o $@ -c $^
 
 #basics_gcc.o: basicsSEAL.cpp
@@ -9,10 +11,9 @@
 basics_gcc: basicsSEAL.cpp
 	/usr/bin/c++ $^ -I../libseal_src/ -L../libseal_src/ -lseal -o $@
 
-basics_riscv.o: basicsSEAL.cpp
+basics_riscv: basicsSEAL.cpp
 	@echo "=== Compiling Basics ==="
-	/opt/riscv/bin/riscv64-unknown-linux-gnu-g++ $^ -isystem ./SEAL_lib_mod -L../libseal_src/ -lseal -o $@
-
+	$(CC) $^ -I../libseal_src/ -L../libseal_src/ -lseal -o $@
 
 
 clean:

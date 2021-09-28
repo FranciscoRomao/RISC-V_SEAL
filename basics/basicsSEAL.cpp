@@ -10,7 +10,6 @@ using namespace seal::util;
 
 int main()
 {
-
     EncryptionParameters parms(scheme_type::bfv);
 
     size_t poly_modulus_degree = 4096;
